@@ -171,7 +171,7 @@ namespace LabTest
             lblModeBadge.BackColor = Color.FromArgb(239, 246, 255);
             lblModeBadge.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
             lblModeBadge.ForeColor = Color.FromArgb(37, 99, 235);
-            lblModeBadge.Location = new Point(234, 6);
+            lblModeBadge.Location = new Point(223, 6);
             lblModeBadge.Name = "lblModeBadge";
             lblModeBadge.Size = new Size(120, 24);
             lblModeBadge.TabIndex = 1;
@@ -183,7 +183,7 @@ namespace LabTest
             lblCardTitle.AutoSize = true;
             lblCardTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblCardTitle.ForeColor = Color.FromArgb(30, 41, 59);
-            lblCardTitle.Location = new Point(0, 6);
+            lblCardTitle.Location = new Point(10, 6);
             lblCardTitle.Name = "lblCardTitle";
             lblCardTitle.Size = new Size(170, 28);
             lblCardTitle.TabIndex = 0;

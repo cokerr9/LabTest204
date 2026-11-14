@@ -180,8 +180,8 @@ namespace LabTest
                     if (InsertCategory(categoryName, imagePath, status))
                     {
                         MessageBox.Show(
-                            "Category created successfully!",
-                            "Success",
+                            "Record inserted successfully!",
+                            "Inserted",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                         ResetForm();
@@ -194,8 +194,8 @@ namespace LabTest
                     if (UpdateCategory(_selectedCategoryID, categoryName, imagePath, status))
                     {
                         MessageBox.Show(
-                            "Category updated successfully!",
-                            "Success",
+                            "Record updated successfully!",
+                            "Updated",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                         ResetForm();
@@ -233,7 +233,11 @@ namespace LabTest
                 {
                     if (DeleteCategory(_selectedCategoryID))
                     {
-                        MessageBox.Show("Category deleted successfully.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(
+                            "Record deleted successfully!",
+                            "Deleted",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
                         ResetForm();
                         LoadCategories();
                     }

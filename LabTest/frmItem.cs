@@ -263,7 +263,11 @@ namespace LabTest
                     // CREATE
                     if (InsertItem(itemName, categoryId, description, unitPrice, imagePath, status))
                     {
-                        MessageBox.Show("Item added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(
+                            "Record inserted successfully!",
+                            "Inserted",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
                         ResetItemForm();
                         LoadItems();
                     }
@@ -273,7 +277,11 @@ namespace LabTest
                     // UPDATE
                     if (UpdateItem(_selectedItemID, itemName, categoryId, description, unitPrice, imagePath, status))
                     {
-                        MessageBox.Show("Item updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(
+                            "Record updated successfully!",
+                            "Updated",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
                         ResetItemForm();
                         LoadItems();
                     }
@@ -305,7 +313,11 @@ namespace LabTest
                 {
                     if (DeleteItem(_selectedItemID))
                     {
-                        MessageBox.Show("Item deleted successfully.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(
+                            "Record deleted successfully!",
+                            "Deleted",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
                         ResetItemForm();
                         LoadItems();
                     }
