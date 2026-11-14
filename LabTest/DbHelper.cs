@@ -6,7 +6,7 @@ namespace LabTest
 {
     /// <summary>
     /// Centralized database helper for SQL Server operations using Microsoft.Data.SqlClient.
-    /// Provides connection management, parameterized query execution, and connection testing.
+    /// Supports both stored procedures and parameterized SQL commands.
     /// </summary>
     public static class DbHelper
     {
@@ -27,14 +27,17 @@ namespace LabTest
             return new SqlConnection(ConnectionString);
         }
 
+        #region Query Execution (DataTable)
+
         /// <summary>
-        /// Executes a SELECT query and returns the results in a DataTable.
+        /// Executes a command with specified CommandType and returns the results in a DataTable.
         /// </summary>
-        public static DataTable ExecuteQuery(string query, params SqlParameter[] parameters)
+        public static DataTable ExecuteQuery(string commandText, CommandType commandType, params SqlParameter[] parameters)
         {
             using (var conn = GetConnection())
-            using (var cmd = new SqlCommand(query, conn))
+            using (var cmd = new SqlCommand(commandText, conn))
             {
+                cmd.CommandType = commandType;
                 if (parameters != null && parameters.Length > 0)
                 {
                     cmd.Parameters.AddRange(parameters);
@@ -50,13 +53,34 @@ namespace LabTest
         }
 
         /// <summary>
+        /// Executes an ad-hoc SQL query string and returns a DataTable.
+        /// </summary>
+        public static DataTable ExecuteQuery(string query, params SqlParameter[] parameters)
+        {
+            return ExecuteQuery(query, CommandType.Text, parameters);
+        }
+
+        /// <summary>
+        /// Executes a Stored Procedure and returns the results in a DataTable.
+        /// </summary>
+        public static DataTable ExecuteStoredProcedure(string procedureName, params SqlParameter[] parameters)
+        {
+            return ExecuteQuery(procedureName, CommandType.StoredProcedure, parameters);
+        }
+
+        #endregion
+
+        #region Non-Query Execution (INSERT, UPDATE, DELETE)
+
+        /// <summary>
         /// Executes an INSERT, UPDATE, or DELETE command and returns affected row count.
         /// </summary>
-        public static int ExecuteNonQuery(string commandText, params SqlParameter[] parameters)
+        public static int ExecuteNonQuery(string commandText, CommandType commandType, params SqlParameter[] parameters)
         {
             using (var conn = GetConnection())
             using (var cmd = new SqlCommand(commandText, conn))
             {
+                cmd.CommandType = commandType;
                 if (parameters != null && parameters.Length > 0)
                 {
                     cmd.Parameters.AddRange(parameters);
@@ -68,13 +92,34 @@ namespace LabTest
         }
 
         /// <summary>
-        /// Executes a scalar command (e.g. SCOPE_IDENTITY() or COUNT(*)) and returns the first column of the first row.
+        /// Executes an ad-hoc non-query command text.
         /// </summary>
-        public static object? ExecuteScalar(string commandText, params SqlParameter[] parameters)
+        public static int ExecuteNonQuery(string commandText, params SqlParameter[] parameters)
+        {
+            return ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        /// <summary>
+        /// Executes a Stored Procedure for INSERT, UPDATE, or DELETE and returns affected row count.
+        /// </summary>
+        public static int ExecuteNonQueryProcedure(string procedureName, params SqlParameter[] parameters)
+        {
+            return ExecuteNonQuery(procedureName, CommandType.StoredProcedure, parameters);
+        }
+
+        #endregion
+
+        #region Scalar Execution (SCOPE_IDENTITY, COUNT)
+
+        /// <summary>
+        /// Executes a scalar command and returns the first column of the first row.
+        /// </summary>
+        public static object? ExecuteScalar(string commandText, CommandType commandType, params SqlParameter[] parameters)
         {
             using (var conn = GetConnection())
             using (var cmd = new SqlCommand(commandText, conn))
             {
+                cmd.CommandType = commandType;
                 if (parameters != null && parameters.Length > 0)
                 {
                     cmd.Parameters.AddRange(parameters);
@@ -84,6 +129,26 @@ namespace LabTest
                 return cmd.ExecuteScalar();
             }
         }
+
+        /// <summary>
+        /// Executes an ad-hoc scalar query.
+        /// </summary>
+        public static object? ExecuteScalar(string commandText, params SqlParameter[] parameters)
+        {
+            return ExecuteScalar(commandText, CommandType.Text, parameters);
+        }
+
+        /// <summary>
+        /// Executes a Stored Procedure that returns a scalar value (e.g. SCOPE_IDENTITY()).
+        /// </summary>
+        public static object? ExecuteScalarProcedure(string procedureName, params SqlParameter[] parameters)
+        {
+            return ExecuteScalar(procedureName, CommandType.StoredProcedure, parameters);
+        }
+
+        #endregion
+
+        #region Connection Testing
 
         /// <summary>
         /// Tests whether the current SQL Server connection is accessible.
@@ -109,5 +174,7 @@ namespace LabTest
                 return false;
             }
         }
+
+        #endregion
     }
 }

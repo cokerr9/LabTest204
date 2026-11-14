@@ -62,18 +62,17 @@ namespace LabTest
 
         #endregion
 
-        #region Database CRUD Operations (Microsoft.Data.SqlClient)
+        #region Database CRUD Operations (Stored Procedures via Microsoft.Data.SqlClient)
 
         /// <summary>
-        /// Reads all category records from tblcategories and binds to DataGridView.
+        /// Reads all category records from tblcategories using stored procedure 'sp_GetAllCategories' and binds to DataGridView.
         /// </summary>
         public void LoadCategories()
         {
             try
             {
                 _isBinding = true;
-                const string query = "SELECT CategoryID, CategoryName, Status, CategoryImage FROM tblcategories ORDER BY CategoryID DESC;";
-                _categoriesTable = DbHelper.ExecuteQuery(query);
+                _categoriesTable = DbHelper.ExecuteStoredProcedure("sp_GetAllCategories");
 
                 // Add ImagePreview column for thumbnail rendering
                 if (!_categoriesTable.Columns.Contains("ImagePreview"))
@@ -95,7 +94,7 @@ namespace LabTest
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    $"Unable to load categories from database:\n\n{ex.Message}\n\nPlease check your SQL Server connection in DbHelper.cs or run DatabaseSetup.sql.",
+                    $"Unable to load categories from database:\n\n{ex.Message}\n\nPlease check your SQL Server connection in DbHelper.cs or run DatabaseSetup.sql / StoredProcedures.sql.",
                     "Database Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -107,15 +106,10 @@ namespace LabTest
         }
 
         /// <summary>
-        /// Inserts a new category into tblcategories.
+        /// Inserts a new category into tblcategories using stored procedure 'sp_InsertCategory'.
         /// </summary>
         private bool InsertCategory(string name, string imagePath, string status)
         {
-            const string insertQuery = @"
-                INSERT INTO tblcategories (CategoryName, CategoryImage, Status) 
-                VALUES (@CategoryName, @CategoryImage, @Status);
-                SELECT CAST(SCOPE_IDENTITY() AS INT);";
-
             var parameters = new[]
             {
                 new SqlParameter("@CategoryName", SqlDbType.NVarChar, 100) { Value = name },
@@ -123,22 +117,15 @@ namespace LabTest
                 new SqlParameter("@Status", SqlDbType.NVarChar, 20) { Value = status }
             };
 
-            var newIdObj = DbHelper.ExecuteScalar(insertQuery, parameters);
+            var newIdObj = DbHelper.ExecuteScalarProcedure("sp_InsertCategory", parameters);
             return newIdObj != null && Convert.ToInt32(newIdObj) > 0;
         }
 
         /// <summary>
-        /// Updates an existing category in tblcategories.
+        /// Updates an existing category in tblcategories using stored procedure 'sp_UpdateCategory'.
         /// </summary>
         private bool UpdateCategory(int categoryId, string name, string imagePath, string status)
         {
-            const string updateQuery = @"
-                UPDATE tblcategories 
-                SET CategoryName = @CategoryName, 
-                    CategoryImage = @CategoryImage, 
-                    Status = @Status 
-                WHERE CategoryID = @CategoryID;";
-
             var parameters = new[]
             {
                 new SqlParameter("@CategoryID", SqlDbType.Int) { Value = categoryId },
@@ -147,21 +134,20 @@ namespace LabTest
                 new SqlParameter("@Status", SqlDbType.NVarChar, 20) { Value = status }
             };
 
-            return DbHelper.ExecuteNonQuery(updateQuery, parameters) > 0;
+            return DbHelper.ExecuteNonQueryProcedure("sp_UpdateCategory", parameters) > 0;
         }
 
         /// <summary>
-        /// Deletes a category by CategoryID from tblcategories.
+        /// Deletes a category by CategoryID from tblcategories using stored procedure 'sp_DeleteCategory'.
         /// </summary>
         private bool DeleteCategory(int categoryId)
         {
-            const string deleteQuery = "DELETE FROM tblcategories WHERE CategoryID = @CategoryID;";
             var parameters = new[]
             {
                 new SqlParameter("@CategoryID", SqlDbType.Int) { Value = categoryId }
             };
 
-            return DbHelper.ExecuteNonQuery(deleteQuery, parameters) > 0;
+            return DbHelper.ExecuteNonQueryProcedure("sp_DeleteCategory", parameters) > 0;
         }
 
         #endregion

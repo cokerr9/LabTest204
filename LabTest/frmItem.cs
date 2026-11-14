@@ -98,17 +98,16 @@ namespace LabTest
 
         #endregion
 
-        #region Database Operations (Microsoft.Data.SqlClient)
+        #region Database Operations (Stored Procedures via Microsoft.Data.SqlClient)
 
         /// <summary>
-        /// Populates the Category ComboBox with DisplayMember = CategoryName and ValueMember = CategoryID.
+        /// Populates the Category ComboBox with DisplayMember = CategoryName and ValueMember = CategoryID using stored procedure 'sp_GetCategoriesLookup'.
         /// </summary>
         public void LoadCategoriesIntoComboBox()
         {
             try
             {
-                const string query = "SELECT CategoryID, CategoryName FROM tblcategories ORDER BY CategoryName ASC;";
-                _categoriesLookupTable = DbHelper.ExecuteQuery(query);
+                _categoriesLookupTable = DbHelper.ExecuteStoredProcedure("sp_GetCategoriesLookup");
 
                 // Bind main category input ComboBox
                 cmbCategory.DataSource = _categoriesLookupTable.Copy();
@@ -135,28 +134,14 @@ namespace LabTest
         }
 
         /// <summary>
-        /// Reads all items from tblitems joined with tblcategories.
+        /// Reads all items from tblitems joined with tblcategories using stored procedure 'sp_GetAllItems'.
         /// </summary>
         public void LoadItems()
         {
             try
             {
                 _isBinding = true;
-                const string query = @"
-                    SELECT 
-                        i.ItemID,
-                        i.ItemName,
-                        c.CategoryName,
-                        i.CategoryID,
-                        i.UnitPrice,
-                        i.Status,
-                        i.Description,
-                        i.ItemImage
-                    FROM tblitems i
-                    INNER JOIN tblcategories c ON i.CategoryID = c.CategoryID
-                    ORDER BY i.ItemID DESC;";
-
-                _itemsTable = DbHelper.ExecuteQuery(query);
+                _itemsTable = DbHelper.ExecuteStoredProcedure("sp_GetAllItems");
 
                 // Add ImagePreview column for thumbnail rendering
                 if (!_itemsTable.Columns.Contains("ImagePreview"))
@@ -187,11 +172,6 @@ namespace LabTest
 
         private bool InsertItem(string name, int categoryId, string description, decimal price, string imagePath, string status)
         {
-            const string insertQuery = @"
-                INSERT INTO tblitems (ItemName, CategoryID, Description, UnitPrice, ItemImage, Status)
-                VALUES (@ItemName, @CategoryID, @Description, @UnitPrice, @ItemImage, @Status);
-                SELECT CAST(SCOPE_IDENTITY() AS INT);";
-
             var parameters = new[]
             {
                 new SqlParameter("@ItemName", SqlDbType.NVarChar, 150) { Value = name },
@@ -202,22 +182,12 @@ namespace LabTest
                 new SqlParameter("@Status", SqlDbType.NVarChar, 20) { Value = status }
             };
 
-            var scalarResult = DbHelper.ExecuteScalar(insertQuery, parameters);
+            var scalarResult = DbHelper.ExecuteScalarProcedure("sp_InsertItem", parameters);
             return scalarResult != null && Convert.ToInt32(scalarResult) > 0;
         }
 
         private bool UpdateItem(int itemId, string name, int categoryId, string description, decimal price, string imagePath, string status)
         {
-            const string updateQuery = @"
-                UPDATE tblitems
-                SET ItemName = @ItemName,
-                    CategoryID = @CategoryID,
-                    Description = @Description,
-                    UnitPrice = @UnitPrice,
-                    ItemImage = @ItemImage,
-                    Status = @Status
-                WHERE ItemID = @ItemID;";
-
             var parameters = new[]
             {
                 new SqlParameter("@ItemID", SqlDbType.Int) { Value = itemId },
@@ -229,18 +199,17 @@ namespace LabTest
                 new SqlParameter("@Status", SqlDbType.NVarChar, 20) { Value = status }
             };
 
-            return DbHelper.ExecuteNonQuery(updateQuery, parameters) > 0;
+            return DbHelper.ExecuteNonQueryProcedure("sp_UpdateItem", parameters) > 0;
         }
 
         private bool DeleteItem(int itemId)
         {
-            const string deleteQuery = "DELETE FROM tblitems WHERE ItemID = @ItemID;";
             var parameters = new[]
             {
                 new SqlParameter("@ItemID", SqlDbType.Int) { Value = itemId }
             };
 
-            return DbHelper.ExecuteNonQuery(deleteQuery, parameters) > 0;
+            return DbHelper.ExecuteNonQueryProcedure("sp_DeleteItem", parameters) > 0;
         }
 
         #endregion
