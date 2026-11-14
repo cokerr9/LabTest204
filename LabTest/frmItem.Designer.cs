@@ -72,12 +72,13 @@ namespace LabTest
             this.btnRefresh = new System.Windows.Forms.Button();
 
             this.dgvItems = new System.Windows.Forms.DataGridView();
+            this.colImage = new System.Windows.Forms.DataGridViewImageColumn();
             this.colItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCategoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCategoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colUnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCategoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colItemImage = new System.Windows.Forms.DataGridViewTextBoxColumn();
 
@@ -517,7 +518,7 @@ namespace LabTest
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(0, 0);
+            this.btnSave.Location = new Point(0, 0);
             this.btnSave.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(129, 44);
@@ -537,7 +538,7 @@ namespace LabTest
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(51, 65, 85);
-            this.btnClear.Location = new System.Drawing.Point(136, 0);
+            this.btnClear.Location = new Point(136, 0);
             this.btnClear.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(124, 44);
@@ -557,7 +558,7 @@ namespace LabTest
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
             this.btnDelete.ForeColor = System.Drawing.Color.FromArgb(148, 163, 184);
-            this.btnDelete.Location = new System.Drawing.Point(266, 0);
+            this.btnDelete.Location = new Point(266, 0);
             this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(128, 44);
@@ -571,7 +572,7 @@ namespace LabTest
             // 
             this.pnlRightCardWrapper.Controls.Add(this.pnlRightCard);
             this.pnlRightCardWrapper.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlRightCardWrapper.Location = new System.Drawing.Point(460, 72);
+            this.pnlRightCardWrapper.Location = new Point(460, 72);
             this.pnlRightCardWrapper.Name = "pnlRightCardWrapper";
             this.pnlRightCardWrapper.Padding = new System.Windows.Forms.Padding(10, 16, 20, 20);
             this.pnlRightCardWrapper.Size = new System.Drawing.Size(724, 649);
@@ -584,7 +585,7 @@ namespace LabTest
             this.pnlRightCard.Controls.Add(this.dgvItems);
             this.pnlRightCard.Controls.Add(this.pnlGridHeader);
             this.pnlRightCard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlRightCard.Location = new System.Drawing.Point(10, 16);
+            this.pnlRightCard.Location = new Point(10, 16);
             this.pnlRightCard.Name = "pnlRightCard";
             this.pnlRightCard.Padding = new System.Windows.Forms.Padding(18);
             this.pnlRightCard.Size = new System.Drawing.Size(694, 613);
@@ -613,12 +614,13 @@ namespace LabTest
             this.dgvItems.ColumnHeadersHeight = 42;
             this.dgvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colImage,
             this.colItemID,
             this.colItemName,
             this.colCategoryName,
-            this.colCategoryID,
             this.colUnitPrice,
             this.colStatus,
+            this.colCategoryID,
             this.colDescription,
             this.colItemImage});
             dgvRowStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -633,7 +635,7 @@ namespace LabTest
             this.dgvItems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvItems.EnableHeadersVisualStyles = false;
             this.dgvItems.GridColor = System.Drawing.Color.FromArgb(241, 245, 249);
-            this.dgvItems.Location = new System.Drawing.Point(18, 82);
+            this.dgvItems.Location = new Point(18, 82);
             this.dgvItems.MultiSelect = false;
             this.dgvItems.Name = "dgvItems";
             this.dgvItems.ReadOnly = true;
@@ -643,13 +645,22 @@ namespace LabTest
             dgvAltRowStyle.SelectionBackColor = System.Drawing.Color.FromArgb(219, 234, 254);
             dgvAltRowStyle.SelectionForeColor = System.Drawing.Color.FromArgb(30, 58, 138);
             this.dgvItems.RowsDefaultCellStyle = dgvAltRowStyle;
-            this.dgvItems.RowTemplate.Height = 38;
+            this.dgvItems.RowTemplate.Height = 52;
             this.dgvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvItems.Size = new System.Drawing.Size(658, 513);
+            this.dgvItems.Size = new Size(658, 513);
             this.dgvItems.TabIndex = 1;
             this.dgvItems.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvItems_CellClick);
             this.dgvItems.SelectionChanged += new System.EventHandler(this.DgvItems_SelectionChanged);
-
+            // 
+            // colImage
+            // 
+            this.colImage.DataPropertyName = "ImagePreview";
+            this.colImage.HeaderText = "Image";
+            this.colImage.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.colImage.MinimumWidth = 60;
+            this.colImage.Name = "colImage";
+            this.colImage.ReadOnly = true;
+            this.colImage.Width = 70;
             // 
             // colItemID
             // 
@@ -659,7 +670,6 @@ namespace LabTest
             this.colItemID.Name = "colItemID";
             this.colItemID.ReadOnly = true;
             this.colItemID.Width = 60;
-
             // 
             // colItemName
             // 
@@ -670,7 +680,6 @@ namespace LabTest
             this.colItemName.MinimumWidth = 110;
             this.colItemName.Name = "colItemName";
             this.colItemName.ReadOnly = true;
-
             // 
             // colCategoryName
             // 
@@ -681,16 +690,6 @@ namespace LabTest
             this.colCategoryName.MinimumWidth = 90;
             this.colCategoryName.Name = "colCategoryName";
             this.colCategoryName.ReadOnly = true;
-
-            // 
-            // colCategoryID
-            // 
-            this.colCategoryID.DataPropertyName = "CategoryID";
-            this.colCategoryID.HeaderText = "CatID";
-            this.colCategoryID.Name = "colCategoryID";
-            this.colCategoryID.ReadOnly = true;
-            this.colCategoryID.Visible = false;
-
             // 
             // colUnitPrice
             // 
@@ -700,7 +699,6 @@ namespace LabTest
             this.colUnitPrice.Name = "colUnitPrice";
             this.colUnitPrice.ReadOnly = true;
             this.colUnitPrice.Width = 95;
-
             // 
             // colStatus
             // 
@@ -710,7 +708,14 @@ namespace LabTest
             this.colStatus.Name = "colStatus";
             this.colStatus.ReadOnly = true;
             this.colStatus.Width = 85;
-
+            // 
+            // colCategoryID
+            // 
+            this.colCategoryID.DataPropertyName = "CategoryID";
+            this.colCategoryID.HeaderText = "CatID";
+            this.colCategoryID.Name = "colCategoryID";
+            this.colCategoryID.ReadOnly = true;
+            this.colCategoryID.Visible = false;
             // 
             // colDescription
             // 
@@ -719,16 +724,14 @@ namespace LabTest
             this.colDescription.Name = "colDescription";
             this.colDescription.ReadOnly = true;
             this.colDescription.Visible = false;
-
             // 
             // colItemImage
             // 
             this.colItemImage.DataPropertyName = "ItemImage";
-            this.colItemImage.HeaderText = "Image";
+            this.colItemImage.HeaderText = "Image Path";
             this.colItemImage.Name = "colItemImage";
             this.colItemImage.ReadOnly = true;
             this.colItemImage.Visible = false;
-
             // 
             // pnlGridHeader
             // 
@@ -742,7 +745,6 @@ namespace LabTest
             this.pnlGridHeader.Name = "pnlGridHeader";
             this.pnlGridHeader.Size = new System.Drawing.Size(658, 64);
             this.pnlGridHeader.TabIndex = 0;
-
             // 
             // lblGridTitle
             // 
@@ -754,7 +756,6 @@ namespace LabTest
             this.lblGridTitle.Size = new System.Drawing.Size(123, 21);
             this.lblGridTitle.TabIndex = 0;
             this.lblGridTitle.Text = "Item Inventory";
-
             // 
             // lblRecordCount
             // 
@@ -766,7 +767,6 @@ namespace LabTest
             this.lblRecordCount.Size = new System.Drawing.Size(89, 15);
             this.lblRecordCount.TabIndex = 1;
             this.lblRecordCount.Text = "Loading items...";
-
             // 
             // lblFilterCategory
             // 
@@ -779,7 +779,6 @@ namespace LabTest
             this.lblFilterCategory.Size = new System.Drawing.Size(39, 15);
             this.lblFilterCategory.TabIndex = 2;
             this.lblFilterCategory.Text = "Filter:";
-
             // 
             // cmbFilterCategory
             // 
@@ -795,7 +794,6 @@ namespace LabTest
             this.cmbFilterCategory.Size = new System.Drawing.Size(175, 23);
             this.cmbFilterCategory.TabIndex = 3;
             this.cmbFilterCategory.SelectedIndexChanged += new System.EventHandler(this.CmbFilterCategory_SelectedIndexChanged);
-
             // 
             // btnRefresh
             // 
@@ -813,7 +811,6 @@ namespace LabTest
             this.btnRefresh.Text = "🔄 Refresh";
             this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.BtnRefresh_Click);
-
             // 
             // frmItem
             // 
@@ -831,7 +828,6 @@ namespace LabTest
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Item Management";
             this.Load += new System.EventHandler(this.FrmItem_Load);
-
             this.pnlTopHeader.ResumeLayout(false);
             this.pnlTopHeader.PerformLayout();
             this.pnlLeftCardWrapper.ResumeLayout(false);
@@ -904,12 +900,13 @@ namespace LabTest
         private System.Windows.Forms.Button btnRefresh;
 
         private System.Windows.Forms.DataGridView dgvItems;
+        private System.Windows.Forms.DataGridViewImageColumn colImage;
         private System.Windows.Forms.DataGridViewTextBoxColumn colItemID;
         private System.Windows.Forms.DataGridViewTextBoxColumn colItemName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCategoryName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCategoryID;
         private System.Windows.Forms.DataGridViewTextBoxColumn colUnitPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCategoryID;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn colItemImage;
     }

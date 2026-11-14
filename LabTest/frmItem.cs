@@ -157,6 +157,19 @@ namespace LabTest
                     ORDER BY i.ItemID DESC;";
 
                 _itemsTable = DbHelper.ExecuteQuery(query);
+
+                // Add ImagePreview column for thumbnail rendering
+                if (!_itemsTable.Columns.Contains("ImagePreview"))
+                {
+                    _itemsTable.Columns.Add("ImagePreview", typeof(Image));
+                }
+
+                foreach (DataRow row in _itemsTable.Rows)
+                {
+                    string? path = row["ItemImage"]?.ToString();
+                    row["ImagePreview"] = LoadThumbnailSafe(path, 48, 48);
+                }
+
                 dgvItems.DataSource = _itemsTable;
                 ApplyFilters();
                 dgvItems.ClearSelection();
@@ -541,6 +554,69 @@ namespace LabTest
 
             int count = _itemsTable.DefaultView.Count;
             lblRecordCount.Text = $"{count} {(count == 1 ? "item" : "items")} found";
+        }
+
+        private static Bitmap? _cachedItemPlaceholder;
+
+        private static Image LoadThumbnailSafe(string? filePath, int width, int height)
+        {
+            if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
+            {
+                return GetPlaceholderBitmap(width, height);
+            }
+
+            try
+            {
+                using (var stream = new MemoryStream(File.ReadAllBytes(filePath)))
+                using (var original = Image.FromStream(stream))
+                {
+                    var thumbnail = new Bitmap(width, height);
+                    using (var g = Graphics.FromImage(thumbnail))
+                    {
+                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                        g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                        g.Clear(Color.Transparent);
+
+                        float scale = Math.Min((float)width / original.Width, (float)height / original.Height);
+                        int scaledWidth = Math.Max(1, (int)(original.Width * scale));
+                        int scaledHeight = Math.Max(1, (int)(original.Height * scale));
+                        int x = (width - scaledWidth) / 2;
+                        int y = (height - scaledHeight) / 2;
+
+                        g.DrawImage(original, x, y, scaledWidth, scaledHeight);
+                    }
+                    return thumbnail;
+                }
+            }
+            catch
+            {
+                return GetPlaceholderBitmap(width, height);
+            }
+        }
+
+        private static Image GetPlaceholderBitmap(int width, int height)
+        {
+            if (_cachedItemPlaceholder != null) return _cachedItemPlaceholder;
+
+            var bmp = new Bitmap(width, height);
+            using (var g = Graphics.FromImage(bmp))
+            {
+                g.Clear(Color.FromArgb(241, 245, 249));
+                using (var pen = new Pen(Color.FromArgb(226, 232, 240), 1))
+                {
+                    g.DrawRectangle(pen, 0, 0, width - 1, height - 1);
+                }
+                using (var brush = new SolidBrush(Color.FromArgb(148, 163, 184)))
+                using (var font = new Font("Segoe UI", 7.5F))
+                {
+                    var text = "No Img";
+                    var size = g.MeasureString(text, font);
+                    g.DrawString(text, font, brush, (width - size.Width) / 2, (height - size.Height) / 2);
+                }
+            }
+            _cachedItemPlaceholder = bmp;
+            return _cachedItemPlaceholder;
         }
 
         #endregion

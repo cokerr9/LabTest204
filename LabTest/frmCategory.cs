@@ -75,6 +75,18 @@ namespace LabTest
                 const string query = "SELECT CategoryID, CategoryName, Status, CategoryImage FROM tblcategories ORDER BY CategoryID DESC;";
                 _categoriesTable = DbHelper.ExecuteQuery(query);
 
+                // Add ImagePreview column for thumbnail rendering
+                if (!_categoriesTable.Columns.Contains("ImagePreview"))
+                {
+                    _categoriesTable.Columns.Add("ImagePreview", typeof(Image));
+                }
+
+                foreach (DataRow row in _categoriesTable.Rows)
+                {
+                    string? path = row["CategoryImage"]?.ToString();
+                    row["ImagePreview"] = LoadThumbnailSafe(path, 48, 48);
+                }
+
                 dgvCategories.DataSource = _categoriesTable;
                 dgvCategories.ClearSelection();
                 dgvCategories.CurrentCell = null;
@@ -415,6 +427,69 @@ namespace LabTest
         {
             int count = _categoriesTable?.DefaultView.Count ?? 0;
             lblRecordCount.Text = $"{count} {(count == 1 ? "category" : "categories")} found";
+        }
+
+        private static Bitmap? _cachedCategoryPlaceholder;
+
+        private static Image LoadThumbnailSafe(string? filePath, int width, int height)
+        {
+            if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
+            {
+                return GetPlaceholderBitmap(width, height);
+            }
+
+            try
+            {
+                using (var stream = new MemoryStream(File.ReadAllBytes(filePath)))
+                using (var original = Image.FromStream(stream))
+                {
+                    var thumbnail = new Bitmap(width, height);
+                    using (var g = Graphics.FromImage(thumbnail))
+                    {
+                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                        g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                        g.Clear(Color.Transparent);
+
+                        float scale = Math.Min((float)width / original.Width, (float)height / original.Height);
+                        int scaledWidth = Math.Max(1, (int)(original.Width * scale));
+                        int scaledHeight = Math.Max(1, (int)(original.Height * scale));
+                        int x = (width - scaledWidth) / 2;
+                        int y = (height - scaledHeight) / 2;
+
+                        g.DrawImage(original, x, y, scaledWidth, scaledHeight);
+                    }
+                    return thumbnail;
+                }
+            }
+            catch
+            {
+                return GetPlaceholderBitmap(width, height);
+            }
+        }
+
+        private static Image GetPlaceholderBitmap(int width, int height)
+        {
+            if (_cachedCategoryPlaceholder != null) return _cachedCategoryPlaceholder;
+
+            var bmp = new Bitmap(width, height);
+            using (var g = Graphics.FromImage(bmp))
+            {
+                g.Clear(Color.FromArgb(241, 245, 249));
+                using (var pen = new Pen(Color.FromArgb(226, 232, 240), 1))
+                {
+                    g.DrawRectangle(pen, 0, 0, width - 1, height - 1);
+                }
+                using (var brush = new SolidBrush(Color.FromArgb(148, 163, 184)))
+                using (var font = new Font("Segoe UI", 7.5F))
+                {
+                    var text = "No Img";
+                    var size = g.MeasureString(text, font);
+                    g.DrawString(text, font, brush, (width - size.Width) / 2, (height - size.Height) / 2);
+                }
+            }
+            _cachedCategoryPlaceholder = bmp;
+            return _cachedCategoryPlaceholder;
         }
 
         #endregion

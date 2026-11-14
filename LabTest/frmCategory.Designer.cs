@@ -57,6 +57,7 @@ namespace LabTest
             this.btnRefresh = new System.Windows.Forms.Button();
             this.lblGridTitle = new System.Windows.Forms.Label();
             this.dgvCategories = new System.Windows.Forms.DataGridView();
+            this.colImage = new System.Windows.Forms.DataGridViewImageColumn();
             this.colCategoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCategoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -196,7 +197,7 @@ namespace LabTest
             // 
             this.lblCardTitle.AutoSize = true;
             this.lblCardTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblCardTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
+            this.lblCardTitle.ForeColor = System.Drawing.Color.FromArgb(30, 41, 59);
             this.lblCardTitle.Location = new System.Drawing.Point(0, 6);
             this.lblCardTitle.Name = "lblCardTitle";
             this.lblCardTitle.Size = new System.Drawing.Size(135, 21);
@@ -207,9 +208,9 @@ namespace LabTest
             // lblModeBadge
             // 
             this.lblModeBadge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblModeBadge.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
+            this.lblModeBadge.BackColor = System.Drawing.Color.FromArgb(239, 246, 255);
             this.lblModeBadge.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.lblModeBadge.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.lblModeBadge.ForeColor = System.Drawing.Color.FromArgb(37, 99, 235);
             this.lblModeBadge.Location = new System.Drawing.Point(234, 6);
             this.lblModeBadge.Name = "lblModeBadge";
             this.lblModeBadge.Size = new System.Drawing.Size(120, 24);
@@ -222,7 +223,7 @@ namespace LabTest
             // 
             this.lblCategoryID.AutoSize = true;
             this.lblCategoryID.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
-            this.lblCategoryID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
+            this.lblCategoryID.ForeColor = System.Drawing.Color.FromArgb(30, 41, 59);
             this.lblCategoryID.Location = new System.Drawing.Point(0, 50);
             this.lblCategoryID.Name = "lblCategoryID";
             this.lblCategoryID.Size = new System.Drawing.Size(82, 17);
@@ -234,10 +235,10 @@ namespace LabTest
             // 
             this.txtCategoryID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCategoryID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.txtCategoryID.BackColor = System.Drawing.Color.FromArgb(248, 250, 252);
             this.txtCategoryID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCategoryID.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            this.txtCategoryID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
+            this.txtCategoryID.ForeColor = System.Drawing.Color.FromArgb(100, 116, 139);
             this.txtCategoryID.Location = new System.Drawing.Point(0, 71);
             this.txtCategoryID.Name = "txtCategoryID";
             this.txtCategoryID.ReadOnly = true;
@@ -250,7 +251,7 @@ namespace LabTest
             // 
             this.lblCategoryName.AutoSize = true;
             this.lblCategoryName.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
-            this.lblCategoryName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
+            this.lblCategoryName.ForeColor = System.Drawing.Color.FromArgb(30, 41, 59);
             this.lblCategoryName.Location = new System.Drawing.Point(0, 107);
             this.lblCategoryName.Name = "lblCategoryName";
             this.lblCategoryName.Size = new System.Drawing.Size(115, 17);
@@ -265,7 +266,7 @@ namespace LabTest
             this.txtCategoryName.BackColor = System.Drawing.Color.White;
             this.txtCategoryName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCategoryName.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtCategoryName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
+            this.txtCategoryName.ForeColor = System.Drawing.Color.FromArgb(30, 41, 59);
             this.txtCategoryName.Location = new System.Drawing.Point(0, 128);
             this.txtCategoryName.Name = "txtCategoryName";
             this.txtCategoryName.PlaceholderText = "e.g., Beverages, Electronics";
@@ -280,7 +281,7 @@ namespace LabTest
             this.chkStatus.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkStatus.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkStatus.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
-            this.chkStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(185)))), ((int)(((byte)(129)))));
+            this.chkStatus.ForeColor = System.Drawing.Color.FromArgb(16, 185, 129);
             this.chkStatus.Location = new System.Drawing.Point(0, 168);
             this.chkStatus.Name = "chkStatus";
             this.chkStatus.Size = new System.Drawing.Size(252, 21);
@@ -294,7 +295,7 @@ namespace LabTest
             // 
             this.lblImageHeading.AutoSize = true;
             this.lblImageHeading.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
-            this.lblImageHeading.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
+            this.lblImageHeading.ForeColor = System.Drawing.Color.FromArgb(30, 41, 59);
             this.lblImageHeading.Location = new System.Drawing.Point(0, 206);
             this.lblImageHeading.Name = "lblImageHeading";
             this.lblImageHeading.Size = new System.Drawing.Size(107, 17);
@@ -304,7 +305,7 @@ namespace LabTest
             // 
             // picPreview
             // 
-            this.picPreview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.picPreview.BackColor = System.Drawing.Color.FromArgb(248, 250, 252);
             this.picPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picPreview.Location = new System.Drawing.Point(0, 228);
             this.picPreview.Name = "picPreview";
@@ -330,13 +331,13 @@ namespace LabTest
             // 
             this.btnBrowseImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(242)))), ((int)(((byte)(255)))));
+            this.btnBrowseImage.BackColor = System.Drawing.Color.FromArgb(238, 242, 255);
             this.btnBrowseImage.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBrowseImage.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(210)))), ((int)(((byte)(254)))));
+            this.btnBrowseImage.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(199, 210, 254);
             this.btnBrowseImage.FlatAppearance.BorderSize = 1;
             this.btnBrowseImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowseImage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnBrowseImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.btnBrowseImage.ForeColor = System.Drawing.Color.FromArgb(37, 99, 235);
             this.btnBrowseImage.Location = new System.Drawing.Point(0, 12);
             this.btnBrowseImage.Name = "btnBrowseImage";
             this.btnBrowseImage.Size = new System.Drawing.Size(184, 34);
@@ -350,13 +351,13 @@ namespace LabTest
             // 
             this.btnRemoveImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
+            this.btnRemoveImage.BackColor = System.Drawing.Color.FromArgb(254, 242, 242);
             this.btnRemoveImage.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRemoveImage.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(202)))), ((int)(((byte)(202)))));
+            this.btnRemoveImage.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(254, 202, 202);
             this.btnRemoveImage.FlatAppearance.BorderSize = 1;
             this.btnRemoveImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemoveImage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnRemoveImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.btnRemoveImage.ForeColor = System.Drawing.Color.FromArgb(220, 38, 38);
             this.btnRemoveImage.Location = new System.Drawing.Point(0, 56);
             this.btnRemoveImage.Name = "btnRemoveImage";
             this.btnRemoveImage.Size = new System.Drawing.Size(184, 34);
@@ -372,7 +373,7 @@ namespace LabTest
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblImagePath.AutoEllipsis = true;
             this.lblImagePath.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            this.lblImagePath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(163)))), ((int)(((byte)(184)))));
+            this.lblImagePath.ForeColor = System.Drawing.Color.FromArgb(148, 163, 184);
             this.lblImagePath.Location = new System.Drawing.Point(0, 362);
             this.lblImagePath.Name = "lblImagePath";
             this.lblImagePath.Size = new System.Drawing.Size(354, 20);
@@ -411,14 +412,14 @@ namespace LabTest
             // 
             // btnSave
             // 
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(37, 99, 235);
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(0, 0);
+            this.btnSave.Location = new Point(0, 0);
             this.btnSave.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(116, 44);
@@ -430,15 +431,15 @@ namespace LabTest
             // 
             // btnClear
             // 
-            this.btnClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
+            this.btnClear.BackColor = System.Drawing.Color.FromArgb(241, 245, 249);
             this.btnClear.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClear.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnClear.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
+            this.btnClear.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(203, 213, 225);
             this.btnClear.FlatAppearance.BorderSize = 1;
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
-            this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
-            this.btnClear.Location = new System.Drawing.Point(123, 0);
+            this.btnClear.ForeColor = System.Drawing.Color.FromArgb(51, 65, 85);
+            this.btnClear.Location = new Point(123, 0);
             this.btnClear.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(110, 44);
@@ -450,15 +451,14 @@ namespace LabTest
             // 
             // btnDelete
             // 
-            this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
+            this.btnDelete.BackColor = System.Drawing.Color.FromArgb(241, 245, 249);
             this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDelete.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDelete.Enabled = false;
-            this.btnDelete.FlatAppearance.BorderSize = 0;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
-            this.btnDelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(163)))), ((int)(((byte)(184)))));
-            this.btnDelete.Location = new System.Drawing.Point(239, 0);
+            this.btnDelete.ForeColor = System.Drawing.Color.FromArgb(148, 163, 184);
+            this.btnDelete.Location = new Point(239, 0);
             this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(115, 44);
@@ -472,7 +472,7 @@ namespace LabTest
             // 
             this.pnlRightCardWrapper.Controls.Add(this.pnlRightCard);
             this.pnlRightCardWrapper.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlRightCardWrapper.Location = new System.Drawing.Point(420, 72);
+            this.pnlRightCardWrapper.Location = new Point(420, 72);
             this.pnlRightCardWrapper.Name = "pnlRightCardWrapper";
             this.pnlRightCardWrapper.Padding = new System.Windows.Forms.Padding(10, 16, 20, 20);
             this.pnlRightCardWrapper.Size = new System.Drawing.Size(664, 609);
@@ -485,7 +485,7 @@ namespace LabTest
             this.pnlRightCard.Controls.Add(this.dgvCategories);
             this.pnlRightCard.Controls.Add(this.pnlGridHeader);
             this.pnlRightCard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlRightCard.Location = new System.Drawing.Point(10, 16);
+            this.pnlRightCard.Location = new Point(10, 16);
             this.pnlRightCard.Name = "pnlRightCard";
             this.pnlRightCard.Padding = new System.Windows.Forms.Padding(18);
             this.pnlRightCard.Size = new System.Drawing.Size(634, 573);
@@ -503,92 +503,97 @@ namespace LabTest
             this.dgvCategories.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvCategories.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(248, 250, 252);
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(71, 85, 105);
             dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(248, 250, 252);
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(71, 85, 105);
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvCategories.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCategories.ColumnHeadersHeight = 42;
             this.dgvCategories.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCategories.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colImage,
             this.colCategoryID,
             this.colCategoryName,
             this.colStatus,
             this.colImagePath});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(234)))), ((int)(((byte)(254)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(58)))), ((int)(((byte)(138)))));
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9.5F);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(30, 41, 59);
+            dataGridViewCellStyle2.Padding = new Padding(8, 0, 8, 0);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(219, 234, 254);
+            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(30, 58, 138);
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCategories.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvCategories.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCategories.Dock = DockStyle.Fill;
             this.dgvCategories.EnableHeadersVisualStyles = false;
-            this.dgvCategories.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
-            this.dgvCategories.Location = new System.Drawing.Point(18, 78);
+            this.dgvCategories.GridColor = Color.FromArgb(241, 245, 249);
+            this.dgvCategories.Location = new Point(18, 78);
             this.dgvCategories.MultiSelect = false;
             this.dgvCategories.Name = "dgvCategories";
             this.dgvCategories.ReadOnly = true;
             this.dgvCategories.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgvCategories.RowHeadersVisible = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(234)))), ((int)(((byte)(254)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(58)))), ((int)(((byte)(138)))));
+            this.dgvCategories.RowHeadersWidth = 51;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(219, 234, 254);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(30, 58, 138);
             this.dgvCategories.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvCategories.RowTemplate.Height = 38;
+            this.dgvCategories.RowTemplate.Height = 52;
             this.dgvCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCategories.Size = new System.Drawing.Size(598, 477);
+            this.dgvCategories.Size = new Size(598, 477);
             this.dgvCategories.TabIndex = 1;
             this.dgvCategories.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvCategories_CellClick);
             this.dgvCategories.SelectionChanged += new System.EventHandler(this.DgvCategories_SelectionChanged);
-
+            // 
+            // colImage
+            // 
+            this.colImage.DataPropertyName = "ImagePreview";
+            this.colImage.HeaderText = "Image";
+            this.colImage.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.colImage.MinimumWidth = 60;
+            this.colImage.Name = "colImage";
+            this.colImage.ReadOnly = true;
+            this.colImage.Width = 70;
             // 
             // colCategoryID
             // 
             this.colCategoryID.DataPropertyName = "CategoryID";
             this.colCategoryID.HeaderText = "ID";
-            this.colCategoryID.MinimumWidth = 60;
+            this.colCategoryID.MinimumWidth = 50;
             this.colCategoryID.Name = "colCategoryID";
             this.colCategoryID.ReadOnly = true;
-            this.colCategoryID.Width = 65;
-
+            this.colCategoryID.Width = 60;
             // 
             // colCategoryName
             // 
             this.colCategoryName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colCategoryName.DataPropertyName = "CategoryName";
-            this.colCategoryName.FillWeight = 45F;
+            this.colCategoryName.FillWeight = 70F;
             this.colCategoryName.HeaderText = "Category Name";
             this.colCategoryName.MinimumWidth = 120;
             this.colCategoryName.Name = "colCategoryName";
             this.colCategoryName.ReadOnly = true;
-
             // 
             // colStatus
             // 
             this.colStatus.DataPropertyName = "Status";
             this.colStatus.HeaderText = "Status";
-            this.colStatus.MinimumWidth = 80;
+            this.colStatus.MinimumWidth = 70;
             this.colStatus.Name = "colStatus";
             this.colStatus.ReadOnly = true;
-            this.colStatus.Width = 90;
-
+            this.colStatus.Width = 80;
             // 
             // colImagePath
             // 
-            this.colImagePath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colImagePath.DataPropertyName = "CategoryImage";
-            this.colImagePath.FillWeight = 55F;
             this.colImagePath.HeaderText = "Image Path";
-            this.colImagePath.MinimumWidth = 100;
             this.colImagePath.Name = "colImagePath";
             this.colImagePath.ReadOnly = true;
-
+            this.colImagePath.Visible = false;
             // 
             // pnlGridHeader
             // 
@@ -600,19 +605,17 @@ namespace LabTest
             this.pnlGridHeader.Name = "pnlGridHeader";
             this.pnlGridHeader.Size = new System.Drawing.Size(598, 60);
             this.pnlGridHeader.TabIndex = 0;
-
             // 
             // lblRecordCount
             // 
             this.lblRecordCount.AutoSize = true;
-            this.lblRecordCount.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            this.lblRecordCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
-            this.lblRecordCount.Location = new System.Drawing.Point(2, 32);
+            this.lblRecordCount.Font = new Font("Segoe UI", 8.5F);
+            this.lblRecordCount.ForeColor = Color.FromArgb(100, 116, 139);
+            this.lblRecordCount.Location = new Point(2, 32);
             this.lblRecordCount.Name = "lblRecordCount";
             this.lblRecordCount.Size = new System.Drawing.Size(107, 15);
             this.lblRecordCount.TabIndex = 2;
             this.lblRecordCount.Text = "Loading records...";
-
             // 
             // btnRefresh
             // 
@@ -630,7 +633,6 @@ namespace LabTest
             this.btnRefresh.Text = "🔄 Refresh";
             this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.BtnRefresh_Click);
-
             // 
             // lblGridTitle
             // 
@@ -642,7 +644,6 @@ namespace LabTest
             this.lblGridTitle.Size = new System.Drawing.Size(155, 21);
             this.lblGridTitle.TabIndex = 0;
             this.lblGridTitle.Text = "Existing Categories";
-
             // 
             // frmCategory
             // 
@@ -716,6 +717,7 @@ namespace LabTest
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Label lblRecordCount;
         private System.Windows.Forms.DataGridView dgvCategories;
+        private System.Windows.Forms.DataGridViewImageColumn colImage;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCategoryID;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCategoryName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
