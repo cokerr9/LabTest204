@@ -17,9 +17,9 @@ namespace LabTest
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnlTopHeader = new Panel();
             btnNavToCategories = new Button();
             lblHeaderTitle = new Label();
@@ -29,13 +29,10 @@ namespace LabTest
             pnlCardHeader = new Panel();
             lblModeBadge = new Label();
             lblCardTitle = new Label();
-            lblItemID = new Label();
             txtItemID = new TextBox();
             lblCategory = new Label();
             cmbCategory = new ComboBox();
-            lblItemName = new Label();
             txtItemName = new TextBox();
-            lblUnitPrice = new Label();
             txtUnitPrice = new TextBox();
             lblDescription = new Label();
             txtDescription = new TextBox();
@@ -45,6 +42,9 @@ namespace LabTest
             btnBrowseImage = new Button();
             btnRemoveImage = new Button();
             lblImagePath = new Label();
+            lblUnitPrice = new Label();
+            lblItemName = new Label();
+            lblItemID = new Label();
             pnlCardFooter = new Panel();
             pnlButtons = new TableLayoutPanel();
             btnSave = new Button();
@@ -206,17 +206,6 @@ namespace LabTest
             lblCardTitle.TabIndex = 0;
             lblCardTitle.Text = "Item Details";
             // 
-            // lblItemID
-            // 
-            lblItemID.AutoSize = true;
-            lblItemID.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            lblItemID.ForeColor = Color.FromArgb(30, 41, 59);
-            lblItemID.Location = new Point(0, 48);
-            lblItemID.Name = "lblItemID";
-            lblItemID.Size = new Size(66, 21);
-            lblItemID.TabIndex = 1;
-            lblItemID.Text = "Item ID";
-            // 
             // txtItemID
             // 
             txtItemID.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -256,17 +245,6 @@ namespace LabTest
             cmbCategory.Size = new Size(394, 31);
             cmbCategory.TabIndex = 4;
             // 
-            // lblItemName
-            // 
-            lblItemName.AutoSize = true;
-            lblItemName.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            lblItemName.ForeColor = Color.FromArgb(30, 41, 59);
-            lblItemName.Location = new Point(0, 154);
-            lblItemName.Name = "lblItemName";
-            lblItemName.Size = new Size(106, 21);
-            lblItemName.TabIndex = 5;
-            lblItemName.Text = "Item Name *";
-            // 
             // txtItemName
             // 
             txtItemName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -278,17 +256,6 @@ namespace LabTest
             txtItemName.Name = "txtItemName";
             txtItemName.Size = new Size(394, 30);
             txtItemName.TabIndex = 6;
-            // 
-            // lblUnitPrice
-            // 
-            lblUnitPrice.AutoSize = true;
-            lblUnitPrice.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            lblUnitPrice.ForeColor = Color.FromArgb(30, 41, 59);
-            lblUnitPrice.Location = new Point(0, 208);
-            lblUnitPrice.Name = "lblUnitPrice";
-            lblUnitPrice.Size = new Size(96, 21);
-            lblUnitPrice.TabIndex = 7;
-            lblUnitPrice.Text = "Unit Price *";
             // 
             // txtUnitPrice
             // 
@@ -323,12 +290,12 @@ namespace LabTest
             txtDescription.BorderStyle = BorderStyle.FixedSingle;
             txtDescription.Font = new Font("Segoe UI", 9.5F);
             txtDescription.ForeColor = Color.FromArgb(30, 41, 59);
-            txtDescription.Location = new Point(0, 282);
+            txtDescription.Location = new Point(1, 282);
             txtDescription.Multiline = true;
             txtDescription.Name = "txtDescription";
             txtDescription.PlaceholderText = "Enter specifications or notes...";
             txtDescription.ScrollBars = ScrollBars.Vertical;
-            txtDescription.Size = new Size(394, 46);
+            txtDescription.Size = new Size(383, 46);
             txtDescription.TabIndex = 10;
             // 
             // chkStatus
@@ -414,6 +381,39 @@ namespace LabTest
             lblImagePath.Size = new Size(252, 20);
             lblImagePath.TabIndex = 16;
             lblImagePath.Text = "No image selected";
+            // 
+            // lblUnitPrice
+            // 
+            lblUnitPrice.AutoSize = true;
+            lblUnitPrice.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            lblUnitPrice.ForeColor = Color.FromArgb(30, 41, 59);
+            lblUnitPrice.Location = new Point(0, 208);
+            lblUnitPrice.Name = "lblUnitPrice";
+            lblUnitPrice.Size = new Size(96, 21);
+            lblUnitPrice.TabIndex = 7;
+            lblUnitPrice.Text = "Unit Price *";
+            // 
+            // lblItemName
+            // 
+            lblItemName.AutoSize = true;
+            lblItemName.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            lblItemName.ForeColor = Color.FromArgb(30, 41, 59);
+            lblItemName.Location = new Point(0, 154);
+            lblItemName.Name = "lblItemName";
+            lblItemName.Size = new Size(106, 21);
+            lblItemName.TabIndex = 5;
+            lblItemName.Text = "Item Name *";
+            // 
+            // lblItemID
+            // 
+            lblItemID.AutoSize = true;
+            lblItemID.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            lblItemID.ForeColor = Color.FromArgb(30, 41, 59);
+            lblItemID.Location = new Point(0, 48);
+            lblItemID.Name = "lblItemID";
+            lblItemID.Size = new Size(66, 21);
+            lblItemID.TabIndex = 1;
+            lblItemID.Text = "Item ID";
             // 
             // pnlCardFooter
             // 
@@ -529,27 +529,27 @@ namespace LabTest
             dgvItems.BorderStyle = BorderStyle.None;
             dgvItems.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvItems.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(248, 250, 252);
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            dataGridViewCellStyle7.ForeColor = Color.FromArgb(71, 85, 105);
-            dataGridViewCellStyle7.Padding = new Padding(8, 0, 8, 0);
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(248, 250, 252);
-            dataGridViewCellStyle7.SelectionForeColor = Color.FromArgb(71, 85, 105);
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dgvItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(248, 250, 252);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(71, 85, 105);
+            dataGridViewCellStyle1.Padding = new Padding(8, 0, 8, 0);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(248, 250, 252);
+            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(71, 85, 105);
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvItems.ColumnHeadersHeight = 42;
             dgvItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvItems.Columns.AddRange(new DataGridViewColumn[] { colImage, colItemID, colItemName, colCategoryName, colUnitPrice, colStatus, colCategoryID, colDescription, colItemImage });
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = Color.White;
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9.5F);
-            dataGridViewCellStyle8.ForeColor = Color.FromArgb(30, 41, 59);
-            dataGridViewCellStyle8.Padding = new Padding(8, 0, 8, 0);
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(219, 234, 254);
-            dataGridViewCellStyle8.SelectionForeColor = Color.FromArgb(30, 58, 138);
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dgvItems.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.White;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9.5F);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(30, 41, 59);
+            dataGridViewCellStyle2.Padding = new Padding(8, 0, 8, 0);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(219, 234, 254);
+            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(30, 58, 138);
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvItems.DefaultCellStyle = dataGridViewCellStyle2;
             dgvItems.Dock = DockStyle.Fill;
             dgvItems.EnableHeadersVisualStyles = false;
             dgvItems.GridColor = Color.FromArgb(241, 245, 249);
@@ -560,10 +560,10 @@ namespace LabTest
             dgvItems.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvItems.RowHeadersVisible = false;
             dgvItems.RowHeadersWidth = 51;
-            dataGridViewCellStyle9.BackColor = Color.FromArgb(248, 250, 252);
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(219, 234, 254);
-            dataGridViewCellStyle9.SelectionForeColor = Color.FromArgb(30, 58, 138);
-            dgvItems.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(248, 250, 252);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(219, 234, 254);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(30, 58, 138);
+            dgvItems.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dgvItems.RowTemplate.Height = 52;
             dgvItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvItems.Size = new Size(658, 513);

@@ -13,16 +13,42 @@ namespace LabTest
         private string _selectedImagePath = string.Empty;
         private DataTable? _categoriesTable;
         private bool _isBinding = false;
+        private readonly System.Windows.Forms.Timer _autoRefreshTimer = new System.Windows.Forms.Timer();
 
         public frmCategory()
         {
             InitializeComponent();
+
+            this.FormClosing += (s, e) =>
+            {
+                _autoRefreshTimer.Stop();
+                _autoRefreshTimer.Dispose();
+            };
+
+            this.Activated += (s, e) =>
+            {
+                if (_selectedCategoryID == 0 && string.IsNullOrWhiteSpace(txtCategoryName.Text))
+                {
+                    LoadCategories(suppressErrors: true);
+                }
+            };
         }
 
         private void FrmCategory_Load(object sender, EventArgs e)
         {
             LoadCategories();
             ResetForm();
+
+            // Auto-refresh every 5 seconds when idle
+            _autoRefreshTimer.Interval = 5000;
+            _autoRefreshTimer.Tick += (s, ev) =>
+            {
+                if (_selectedCategoryID == 0 && string.IsNullOrWhiteSpace(txtCategoryName.Text))
+                {
+                    LoadCategories(suppressErrors: true);
+                }
+            };
+            _autoRefreshTimer.Start();
         }
 
         #region UI Rendering & Visual Effects
@@ -67,7 +93,7 @@ namespace LabTest
         /// <summary>
         /// Reads all category records from tblcategories using stored procedure 'sp_GetAllCategories' and binds to DataGridView.
         /// </summary>
-        public void LoadCategories()
+        public void LoadCategories(bool suppressErrors = false)
         {
             try
             {
@@ -93,11 +119,14 @@ namespace LabTest
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Unable to load categories from database:\n\n{ex.Message}\n\nPlease check your SQL Server connection in DbHelper.cs or run DatabaseSetup.sql / StoredProcedures.sql.",
-                    "Database Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                if (!suppressErrors)
+                {
+                    MessageBox.Show(
+                        $"Unable to load categories from database:\n\n{ex.Message}\n\nPlease check your SQL Server connection in DbHelper.cs or run DatabaseSetup.sql / StoredProcedures.sql.",
+                        "Database Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
             }
             finally
             {
@@ -179,13 +208,13 @@ namespace LabTest
                     // CREATE (INSERT)
                     if (InsertCategory(categoryName, imagePath, status))
                     {
+                        LoadCategories();
+                        ResetForm();
                         MessageBox.Show(
                             "Record inserted successfully!",
                             "Inserted",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
-                        ResetForm();
-                        LoadCategories();
                     }
                 }
                 else
@@ -193,13 +222,13 @@ namespace LabTest
                     // UPDATE
                     if (UpdateCategory(_selectedCategoryID, categoryName, imagePath, status))
                     {
+                        LoadCategories();
+                        ResetForm();
                         MessageBox.Show(
                             "Record updated successfully!",
                             "Updated",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
-                        ResetForm();
-                        LoadCategories();
                     }
                 }
             }
@@ -233,13 +262,13 @@ namespace LabTest
                 {
                     if (DeleteCategory(_selectedCategoryID))
                     {
+                        LoadCategories();
+                        ResetForm();
                         MessageBox.Show(
                             "Record deleted successfully!",
                             "Deleted",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
-                        ResetForm();
-                        LoadCategories();
                     }
                 }
                 catch (Exception ex)
@@ -301,8 +330,15 @@ namespace LabTest
 
         private void BtnNavToItems_Click(object? sender, EventArgs e)
         {
-            // Open Item Management form
             var frm = new frmItem();
+            frm.FormClosed += (s, args) =>
+            {
+                this.Show();
+                this.BringToFront();
+                LoadCategories();
+                ResetForm();
+            };
+            this.Hide();
             frm.Show();
         }
 

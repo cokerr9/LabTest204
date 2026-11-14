@@ -15,10 +15,26 @@ namespace LabTest
         private DataTable? _itemsTable;
         private DataTable? _categoriesLookupTable;
         private bool _isBinding = false;
+        private readonly System.Windows.Forms.Timer _autoRefreshTimer = new System.Windows.Forms.Timer();
 
         public frmItem()
         {
             InitializeComponent();
+
+            this.FormClosing += (s, e) =>
+            {
+                _autoRefreshTimer.Stop();
+                _autoRefreshTimer.Dispose();
+            };
+
+            this.Activated += (s, e) =>
+            {
+                if (_selectedItemID == 0 && string.IsNullOrWhiteSpace(txtItemName.Text))
+                {
+                    LoadCategoriesIntoComboBox(suppressErrors: true);
+                    LoadItems(suppressErrors: true);
+                }
+            };
         }
 
         private void FrmItem_Load(object sender, EventArgs e)
@@ -26,6 +42,17 @@ namespace LabTest
             LoadCategoriesIntoComboBox();
             LoadItems();
             ResetItemForm();
+
+            // Auto-refresh every 5 seconds when idle
+            _autoRefreshTimer.Interval = 5000;
+            _autoRefreshTimer.Tick += (s, ev) =>
+            {
+                if (_selectedItemID == 0 && string.IsNullOrWhiteSpace(txtItemName.Text) && string.IsNullOrWhiteSpace(txtUnitPrice.Text))
+                {
+                    LoadItems(suppressErrors: true);
+                }
+            };
+            _autoRefreshTimer.Start();
         }
 
         #region UI Rendering & Styling
@@ -103,7 +130,7 @@ namespace LabTest
         /// <summary>
         /// Populates the Category ComboBox with DisplayMember = CategoryName and ValueMember = CategoryID using stored procedure 'sp_GetCategoriesLookup'.
         /// </summary>
-        public void LoadCategoriesIntoComboBox()
+        public void LoadCategoriesIntoComboBox(bool suppressErrors = false)
         {
             try
             {
@@ -129,14 +156,17 @@ namespace LabTest
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Could not load categories:\n\n{ex.Message}", "Database Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (!suppressErrors)
+                {
+                    MessageBox.Show($"Could not load categories:\n\n{ex.Message}", "Database Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
         /// <summary>
         /// Reads all items from tblitems joined with tblcategories using stored procedure 'sp_GetAllItems'.
         /// </summary>
-        public void LoadItems()
+        public void LoadItems(bool suppressErrors = false)
         {
             try
             {
@@ -162,7 +192,10 @@ namespace LabTest
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Could not load items:\n\n{ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!suppressErrors)
+                {
+                    MessageBox.Show($"Could not load items:\n\n{ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             finally
             {
@@ -263,13 +296,13 @@ namespace LabTest
                     // CREATE
                     if (InsertItem(itemName, categoryId, description, unitPrice, imagePath, status))
                     {
+                        LoadItems();
+                        ResetItemForm();
                         MessageBox.Show(
                             "Record inserted successfully!",
                             "Inserted",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
-                        ResetItemForm();
-                        LoadItems();
                     }
                 }
                 else
@@ -277,13 +310,13 @@ namespace LabTest
                     // UPDATE
                     if (UpdateItem(_selectedItemID, itemName, categoryId, description, unitPrice, imagePath, status))
                     {
+                        LoadItems();
+                        ResetItemForm();
                         MessageBox.Show(
                             "Record updated successfully!",
                             "Updated",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
-                        ResetItemForm();
-                        LoadItems();
                     }
                 }
             }
@@ -313,13 +346,13 @@ namespace LabTest
                 {
                     if (DeleteItem(_selectedItemID))
                     {
+                        LoadItems();
+                        ResetItemForm();
                         MessageBox.Show(
                             "Record deleted successfully!",
                             "Deleted",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
-                        ResetItemForm();
-                        LoadItems();
                     }
                 }
                 catch (Exception ex)
@@ -383,8 +416,20 @@ namespace LabTest
 
         private void BtnNavToCategories_Click(object? sender, EventArgs e)
         {
-            var frm = new frmCategory();
-            frm.Show();
+            var openCategory = Application.OpenForms.OfType<frmCategory>().FirstOrDefault();
+            if (openCategory != null)
+            {
+                openCategory.Show();
+                openCategory.BringToFront();
+                openCategory.LoadCategories();
+                this.Close();
+            }
+            else
+            {
+                var frm = new frmCategory();
+                frm.Show();
+                this.Close();
+            }
         }
 
         #endregion
