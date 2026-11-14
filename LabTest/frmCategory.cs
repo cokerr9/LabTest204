@@ -291,21 +291,6 @@ namespace LabTest
             }
         }
 
-        private void TxtSearch_TextChanged(object? sender, EventArgs e)
-        {
-            if (_categoriesTable == null) return;
-
-            string filter = txtSearch.Text.Trim().Replace("'", "''");
-            if (string.IsNullOrEmpty(filter))
-            {
-                _categoriesTable.DefaultView.RowFilter = string.Empty;
-            }
-            else
-            {
-                _categoriesTable.DefaultView.RowFilter = $"CategoryName LIKE '%{filter}%' OR Status LIKE '%{filter}%'";
-            }
-            UpdateRecordCountLabel();
-        }
 
         private void BtnRefresh_Click(object? sender, EventArgs e)
         {

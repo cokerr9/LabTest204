@@ -375,10 +375,6 @@ namespace LabTest
             }
         }
 
-        private void TxtSearchItem_TextChanged(object? sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
 
         private void CmbFilterCategory_SelectedIndexChanged(object? sender, EventArgs e)
         {
@@ -528,27 +524,21 @@ namespace LabTest
         {
             if (_itemsTable == null) return;
 
-            string searchText = txtSearchItem.Text.Trim().Replace("'", "''");
             int selectedCatId = 0;
             if (cmbFilterCategory.SelectedValue != null && int.TryParse(cmbFilterCategory.SelectedValue.ToString(), out int parsedCatId))
             {
                 selectedCatId = parsedCatId;
             }
 
-            string filterExpression = string.Empty;
-
             if (selectedCatId > 0)
             {
-                filterExpression = $"CategoryID = {selectedCatId}";
+                _itemsTable.DefaultView.RowFilter = $"CategoryID = {selectedCatId}";
             }
-
-            if (!string.IsNullOrEmpty(searchText))
+            else
             {
-                string searchFilter = $"(ItemName LIKE '%{searchText}%' OR CategoryName LIKE '%{searchText}%' OR Status LIKE '%{searchText}%')";
-                filterExpression = string.IsNullOrEmpty(filterExpression) ? searchFilter : $"{filterExpression} AND {searchFilter}";
+                _itemsTable.DefaultView.RowFilter = string.Empty;
             }
 
-            _itemsTable.DefaultView.RowFilter = filterExpression;
             int count = _itemsTable.DefaultView.Count;
             lblRecordCount.Text = $"{count} {(count == 1 ? "item" : "items")} found";
         }
