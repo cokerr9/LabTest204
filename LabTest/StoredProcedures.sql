@@ -46,7 +46,7 @@ CREATE OR ALTER PROCEDURE [dbo].[sp_InsertCategory]
     @NewCategoryID  INT = NULL OUTPUT
 AS
 BEGIN
-    SET NOCOUNT ON;
+    SET NOCOUNT OFF;
     INSERT INTO [dbo].[tblcategories] ([CategoryName], [CategoryImage], [Status])
     VALUES (@CategoryName, @CategoryImage, @Status);
 
@@ -63,7 +63,7 @@ CREATE OR ALTER PROCEDURE [dbo].[sp_UpdateCategory]
     @Status         NVARCHAR(20)
 AS
 BEGIN
-    SET NOCOUNT ON;
+    SET NOCOUNT OFF;
     UPDATE [dbo].[tblcategories]
     SET [CategoryName]  = @CategoryName,
         [CategoryImage] = @CategoryImage,
@@ -77,7 +77,7 @@ CREATE OR ALTER PROCEDURE [dbo].[sp_DeleteCategory]
     @CategoryID INT
 AS
 BEGIN
-    SET NOCOUNT ON;
+    SET NOCOUNT OFF;
     DELETE FROM [dbo].[tblcategories]
     WHERE [CategoryID] = @CategoryID;
 END
@@ -140,7 +140,7 @@ CREATE OR ALTER PROCEDURE [dbo].[sp_InsertItem]
     @NewItemID    INT = NULL OUTPUT
 AS
 BEGIN
-    SET NOCOUNT ON;
+    SET NOCOUNT OFF;
     INSERT INTO [dbo].[tblitems] ([ItemName], [CategoryID], [Description], [UnitPrice], [ItemImage], [Status])
     VALUES (@ItemName, @CategoryID, @Description, @UnitPrice, @ItemImage, @Status);
 
@@ -160,7 +160,7 @@ CREATE OR ALTER PROCEDURE [dbo].[sp_UpdateItem]
     @Status       NVARCHAR(20)
 AS
 BEGIN
-    SET NOCOUNT ON;
+    SET NOCOUNT OFF;
     UPDATE [dbo].[tblitems]
     SET [ItemName]    = @ItemName,
         [CategoryID]  = @CategoryID,
@@ -177,7 +177,7 @@ CREATE OR ALTER PROCEDURE [dbo].[sp_DeleteItem]
     @ItemID INT
 AS
 BEGIN
-    SET NOCOUNT ON;
+    SET NOCOUNT OFF;
     DELETE FROM [dbo].[tblitems]
     WHERE [ItemID] = @ItemID;
 END

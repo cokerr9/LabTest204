@@ -232,7 +232,8 @@ namespace LabTest
                 new SqlParameter("@Status", SqlDbType.NVarChar, 20) { Value = status }
             };
 
-            return DbHelper.ExecuteNonQueryProcedure("sp_UpdateItem", parameters) > 0;
+            int rows = DbHelper.ExecuteNonQueryProcedure("sp_UpdateItem", parameters);
+            return rows > 0 || rows == -1;
         }
 
         private bool DeleteItem(int itemId)
@@ -242,7 +243,8 @@ namespace LabTest
                 new SqlParameter("@ItemID", SqlDbType.Int) { Value = itemId }
             };
 
-            return DbHelper.ExecuteNonQueryProcedure("sp_DeleteItem", parameters) > 0;
+            int rows = DbHelper.ExecuteNonQueryProcedure("sp_DeleteItem", parameters);
+            return rows > 0 || rows == -1;
         }
 
         #endregion
@@ -318,6 +320,10 @@ namespace LabTest
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                     }
+                    else
+                    {
+                        MessageBox.Show("Could not update item. Please verify the item still exists.", "Update Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
             catch (Exception ex)
@@ -353,6 +359,10 @@ namespace LabTest
                             "Deleted",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Could not delete item. Please check if ID exists.", "Delete Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 catch (Exception ex)

@@ -163,7 +163,8 @@ namespace LabTest
                 new SqlParameter("@Status", SqlDbType.NVarChar, 20) { Value = status }
             };
 
-            return DbHelper.ExecuteNonQueryProcedure("sp_UpdateCategory", parameters) > 0;
+            int rows = DbHelper.ExecuteNonQueryProcedure("sp_UpdateCategory", parameters);
+            return rows > 0 || rows == -1;
         }
 
         /// <summary>
@@ -176,7 +177,8 @@ namespace LabTest
                 new SqlParameter("@CategoryID", SqlDbType.Int) { Value = categoryId }
             };
 
-            return DbHelper.ExecuteNonQueryProcedure("sp_DeleteCategory", parameters) > 0;
+            int rows = DbHelper.ExecuteNonQueryProcedure("sp_DeleteCategory", parameters);
+            return rows > 0 || rows == -1;
         }
 
         #endregion
@@ -230,6 +232,10 @@ namespace LabTest
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                     }
+                    else
+                    {
+                        MessageBox.Show("Could not update category. Please verify the category still exists.", "Update Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
             catch (Exception ex)
@@ -246,18 +252,18 @@ namespace LabTest
         {
             if (_selectedCategoryID <= 0)
             {
-                MessageBox.Show("Please select a category to delete.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Please select a category from the list to delete.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            var confirmResult = MessageBox.Show(
-                $"Are you sure you want to delete category '{txtCategoryName.Text.Trim()}' (ID: {_selectedCategoryID})?\n\nNote: In a relational database, associated child items in tblitems may also be removed.",
-                "Confirm Deletion",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
+            //var confirmResult = MessageBox.Show(
+            //    $"Are you sure you want to delete category '{txtCategoryName.Text.Trim()}' (ID: {_selectedCategoryID})?\n\nNote: In a relational database, associated child items in tblitems may also be removed.",
+            //    "Confirm Deletion",
+            //    MessageBoxButtons.YesNo,
+            //    MessageBoxIcon.Question);
 
-            if (confirmResult == DialogResult.Yes)
-            {
+            //if (confirmResult == DialogResult.Yes)
+            //{
                 try
                 {
                     if (DeleteCategory(_selectedCategoryID))
@@ -270,6 +276,10 @@ namespace LabTest
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                     }
+                    else
+                    {
+                        MessageBox.Show("Could not delete category. Please check if ID exists.", "Delete Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -280,7 +290,7 @@ namespace LabTest
                         MessageBoxIcon.Error);
                 }
             }
-        }
+        //}
 
         private void BtnClear_Click(object? sender, EventArgs e)
         {
